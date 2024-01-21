@@ -92,6 +92,7 @@ const ConfirmPasswordRules = computed(() => {
 
 const submitForm = () => {
   newsStore.setUserName(username.value);
+  newsStore.setRestrictDirectAccessFlag(false);
   router.push({
     name: "news-feed",
   });

@@ -16,7 +16,7 @@
             round
             dense
             icon="home"
-            @click="toggleSearchCardSection"
+            @click="togglenewsCardSection"
             class="q-mx-md"
           />
           <q-input
@@ -74,11 +74,13 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useNewsStore } from "../stores/news";
+import { useRouter } from "vue-router";
 import SearchNews from "../components/SearchNews.vue";
 import NewsHeadlines from "../components/NewsHeadlines.vue";
 import dateFormatter from "../utility/date-formatter";
 
 const newsStore = useNewsStore();
+const router = useRouter();
 
 const showSearchSection = ref(false);
 const showNewsSection = ref(true);
@@ -100,7 +102,20 @@ const country = computed(() => {
 });
 
 const toggleSearchCardSection = () => {
-  showSearchSection.value = !showSearchSection.value;
   showNewsSection.value = !showNewsSection.value;
+  showSearchSection.value = !showSearchSection.value;
+  newsStore.setRestrictDirectAccessFlag(false);
+  router.push({
+    name: "search",
+  });
+};
+
+const togglenewsCardSection = () => {
+  showNewsSection.value = !showNewsSection.value;
+  showSearchSection.value = !showSearchSection.value;
+  newsStore.setRestrictDirectAccessFlag(false);
+  router.push({
+    name: "news-feed",
+  });
 };
 </script>
